@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portfolio — Data Science &amp; Geospatial Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Archivo:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F3F5F0;
+    --ink:#1C2B26;
+    --tide:#14666B;
+    --tide-deep:#0C4A4F;
+    --dune:#B0872E;
+    --contour:#CBD6CD;
+    --card:#FBFCFA;
+    --rule:#DCE3DB;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *,*::before,*::after{animation:none!important;transition:none!important;}
+  }
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Archivo',sans-serif;
+    font-size:16.5px;
+    line-height:1.65;
+  }
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  a{color:var(--tide);text-decoration:none;border-bottom:1px solid var(--contour);transition:border-color .15s;}
+  a:hover{border-color:var(--tide);}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--tide);outline-offset:3px;border-radius:2px;}
+
+  /* ---------- nav ---------- */
+  nav{
+    position:sticky;top:0;z-index:50;
+    background:rgba(243,245,240,.92);backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--rule);
+  }
+  .nav-inner{
+    max-width:1060px;margin:0 auto;padding:14px 28px;
+    display:flex;justify-content:space-between;align-items:center;gap:16px;
+  }
+  .nav-mark{font-family:'IBM Plex Mono',monospace;font-size:.8rem;letter-spacing:.08em;color:var(--tide-deep);border:none;}
+  .nav-links{display:flex;gap:26px;flex-wrap:wrap;}
+  .nav-links a{font-size:.85rem;font-weight:500;color:var(--ink);border:none;letter-spacing:.02em;}
+  .nav-links a:hover{color:var(--tide);}
+
+  /* ---------- hero ---------- */
+  header.hero{
+    position:relative;overflow:hidden;
+    border-bottom:1px solid var(--rule);
+  }
+  .hero-inner{
+    position:relative;z-index:2;
+    max-width:1060px;margin:0 auto;
+    padding:110px 28px 120px;
+    display:flex;align-items:center;gap:56px;
+  }
+  .hero-text{flex:1;min-width:0;}
+  .hero-portrait{
+    flex-shrink:0;width:270px;height:270px;border-radius:50%;
+    overflow:hidden;border:1px solid var(--rule);
+    box-shadow:0 14px 40px rgba(20,60,58,.16);
+    background:var(--card);
+  }
+  .hero-portrait img{width:100%;height:100%;object-fit:cover;display:block;}
+  .hero svg.contours{
+    position:absolute;inset:0;width:100%;height:100%;z-index:1;
+    opacity:.55;
+  }
+  .eyebrow{
+    font-family:'IBM Plex Mono',monospace;font-size:.78rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--tide);margin-bottom:22px;
+  }
+  h1{
+    font-family:'Fraunces',serif;font-weight:500;
+    font-size:clamp(2.4rem,5.6vw,4.2rem);
+    line-height:1.08;letter-spacing:-.01em;
+    max-width:14em;
+  }
+  h1 em{font-style:italic;color:var(--tide-deep);}
+  .hero p.lede{
+    margin-top:28px;max-width:34em;font-size:1.08rem;color:#3A4A44;
+  }
+  .hero-meta{
+    margin-top:44px;display:flex;gap:34px;flex-wrap:wrap;
+    font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:#5A6B63;
+  }
+  .hero-meta span b{display:block;color:var(--ink);font-weight:500;margin-bottom:2px;}
+
+  /* ---------- sections ---------- */
+  section{max-width:1060px;margin:0 auto;padding:84px 28px;}
+  section + section{border-top:1px solid var(--rule);}
+  .sec-label{
+    display:flex;align-items:baseline;gap:14px;margin-bottom:40px;
+  }
+  .sec-label .tick{
+    font-family:'IBM Plex Mono',monospace;font-size:.75rem;color:var(--dune);letter-spacing:.1em;
+  }
+  h2{
+    font-family:'Fraunces',serif;font-weight:500;font-size:1.9rem;letter-spacing:-.01em;
+  }
+
+  /* ---------- projects ---------- */
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:22px;}
+  .card{
+    background:var(--card);border:1px solid var(--rule);border-radius:10px;
+    padding:26px 26px 24px;display:flex;flex-direction:column;gap:12px;
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .card:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(20,60,58,.09);}
+  .card .kind{
+    font-family:'IBM Plex Mono',monospace;font-size:.72rem;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--tide);
+  }
+  .card h3{font-family:'Fraunces',serif;font-weight:500;font-size:1.22rem;line-height:1.25;}
+  .card p{font-size:.94rem;color:#41524B;}
+  .tags{margin-top:auto;display:flex;flex-wrap:wrap;gap:7px;padding-top:8px;}
+  .tags span{
+    font-family:'IBM Plex Mono',monospace;font-size:.7rem;
+    padding:3px 9px;border:1px solid var(--contour);border-radius:100px;color:#4A5A52;
+    background:#fff;
+  }
+
+  /* ---------- field plates ---------- */
+  .plates{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:22px;}
+  .plate{
+    background:#fff;border:1px solid var(--rule);border-radius:10px;
+    padding:18px 18px 14px;text-align:center;
+    transition:transform .18s ease, box-shadow .18s ease;
+  }
+  .plate:hover{transform:translateY(-3px);box-shadow:0 10px 26px rgba(20,60,58,.09);}
+  .plate img{width:100%;height:290px;object-fit:contain;display:block;}
+  .plate .plate-label{
+    margin-top:12px;padding-top:10px;border-top:1px dotted var(--contour);
+    font-family:'IBM Plex Mono',monospace;font-size:.74rem;letter-spacing:.1em;color:#5A6B63;
+  }
+  .plate .plate-label b{color:var(--tide-deep);font-weight:500;}
+  .plates-note{margin-top:22px;font-size:.9rem;color:#5A6B63;max-width:52em;}
+
+  /* ---------- experience ---------- */
+  .xp{display:flex;flex-direction:column;}
+  .xp-item{
+    display:grid;grid-template-columns:190px 1fr;gap:26px;
+    padding:26px 0;border-bottom:1px dashed var(--contour);
+  }
+  .xp-item:last-child{border-bottom:none;}
+  .xp-when{font-family:'IBM Plex Mono',monospace;font-size:.78rem;color:#5A6B63;padding-top:4px;}
+  .xp-item h3{font-family:'Archivo',sans-serif;font-weight:600;font-size:1.05rem;}
+  .xp-item .org{color:var(--tide-deep);font-weight:500;font-size:.95rem;}
+  .xp-item p{margin-top:8px;font-size:.94rem;color:#41524B;max-width:44em;}
+
+  /* ---------- skills ---------- */
+  .legend{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:22px;}
+  .legend-group{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:22px 24px;}
+  .legend-group h3{
+    font-family:'IBM Plex Mono',monospace;font-size:.74rem;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--dune);margin-bottom:14px;
+  }
+  .legend-group ul{list-style:none;}
+  .legend-group li{
+    padding:7px 0;border-bottom:1px dotted var(--contour);font-size:.93rem;
+  }
+  .legend-group li:last-child{border-bottom:none;}
+
+  /* ---------- contact ---------- */
+  .contact-box{
+    background:var(--tide-deep);color:#EAF2EF;border-radius:14px;
+    padding:54px 46px;position:relative;overflow:hidden;
+  }
+  .contact-box h2{color:#fff;margin-bottom:14px;}
+  .contact-box p{max-width:36em;color:#C6DAD5;}
+  .contact-links{margin-top:28px;display:flex;gap:22px;flex-wrap:wrap;}
+  .contact-links a{
+    color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:100px;
+    padding:9px 20px;font-size:.88rem;font-weight:500;
+  }
+  .contact-links a:hover{background:rgba(255,255,255,.12);border-color:#fff;}
+  .contact-box svg{position:absolute;right:-40px;bottom:-60px;width:340px;opacity:.18;}
+
+  footer{
+    max-width:1060px;margin:0 auto;padding:30px 28px 46px;
+    font-family:'IBM Plex Mono',monospace;font-size:.72rem;color:#7A8A82;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;
+  }
+
+  @media (max-width:760px){
+    .hero-inner{flex-direction:column-reverse;align-items:flex-start;gap:36px;}
+    .hero-portrait{width:150px;height:150px;}
+  }
+  @media (max-width:640px){
+    .xp-item{grid-template-columns:1fr;gap:6px;}
+    .hero-inner{padding:80px 24px 90px;}
+    section{padding:64px 24px;}
+    .contact-box{padding:40px 28px;}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <span class="nav-mark">38.03° N · 78.51° W</span>
+    <div class="nav-links">
+      <a href="#projects">Projects</a>
+      <a href="#fieldwork">Fieldwork</a>
+      <a href="#experience">Experience</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <svg class="contours" viewBox="0 0 1200 560" preserveAspectRatio="xMidYMid slice" aria-hidden="true" fill="none">
+    <g stroke="#CBD6CD" stroke-width="1.4">
+      <path d="M-50 470 C 180 420, 320 500, 560 440 S 980 460, 1250 400"/>
+      <path d="M-50 420 C 200 370, 360 450, 600 390 S 1000 410, 1250 350"/>
+      <path d="M-50 370 C 220 320, 400 400, 640 340 S 1020 360, 1250 300"/>
+      <path d="M-50 315 C 240 270, 440 345, 680 290 S 1040 305, 1250 250"/>
+      <path d="M-50 260 C 260 220, 480 285, 720 240 S 1060 250, 1250 200"/>
+      <path d="M100 205 C 320 175, 520 230, 760 195 S 1080 200, 1250 155"/>
+      <path d="M260 155 C 440 135, 600 180, 800 155 S 1100 155, 1250 115"/>
+    </g>
+    <g stroke="#14666B" stroke-width="1.2" opacity=".5">
+      <path d="M-50 500 C 170 455, 310 530, 550 475 S 970 495, 1250 435"/>
+    </g>
+    <circle cx="905" cy="150" r="3.5" fill="#B0872E"/>
+    <text x="920" y="154" font-family="IBM Plex Mono, monospace" font-size="11" fill="#8A9A92">elev. 3.2 m</text>
+  </svg>
+  <div class="hero-inner">
+    <div class="hero-text">
+    <p class="eyebrow">Data Science · Geospatial Analysis · Environmental Applications</p>
+    <h1>Where data science <em>meets the landscape.</em></h1>
+    <p class="lede">
+      I am an undergraduate student at the University of Virginia studying data science
+      and applied statistics. My interests sit at the meeting point of data science,
+      geospatial analysis, and GIS.
+    </p>
+    <div class="hero-meta">
+      <span><b>University of Virginia</b>B.S. Data Science · B.A. Applied Statistics</span>
+      <span><b>Expected Graduation</b>May 2027</span>
+      <span><b>Currently</b>Business Analytics &amp; Automation Intern, Leidos</span>
+    </div>
+    </div>
+    <div class="hero-portrait">
+      <img src="images/headshot.jpg" alt="Portrait of Sharini Rahman">
+    </div>
+  </div>
+</header>
+
+<section id="projects">
+  <div class="sec-label"><span class="tick">FIG. 01</span><h2>Selected Projects</h2></div>
+  <div class="grid">
+
+    <article class="card">
+      <span class="kind">Field Research · GIS</span>
+      <h3>Virginia Barrier Island Topographic Analysis</h3>
+      <p>Processed GPS survey data in ArcGIS to generate interpolated elevation surfaces
+      across four survey years, supporting shoreline, area, and volume change calculations
+      for a dynamic coastal system.</p>
+      <div class="tags"><span>ArcGIS</span><span>GPS Survey Data</span><span>Interpolation</span><span>Coastal Change</span></div>
+    </article>
+
+    <article class="card">
+      <span class="kind">Machine Learning · Geospatial</span>
+      <h3>Flight Collision Risk Prediction</h3>
+      <p>Designed a machine learning system to predict flight collision risk from aviation
+      and geospatial data. Built ETL pipelines with Pentaho, stored spatial data in PostGIS,
+      and evaluated Random Forest, SVM, and K-Means models, with results visualized in
+      ArcGIS and Power BI.</p>
+      <div class="tags"><span>PostGIS</span><span>Scikit-learn</span><span>ETL</span><span>ArcGIS</span></div>
+    </article>
+
+    <article class="card">
+      <span class="kind">Applied AI · Automation</span>
+      <h3>AI-Integrated Cost Extraction Tool</h3>
+      <p>Developing Power Automate workflows for a corporate real estate organization,
+      including an AI-integrated tool that extracts construction cost values with
+      significantly improved accuracy, plus a project tracker uniting SharePoint and
+      Power BI.</p>
+      <div class="tags"><span>Power Automate</span><span>Power BI</span><span>SharePoint</span></div>
+    </article>
+
+    <article class="card">
+      <span class="kind">Data Engineering</span>
+      <h3>Intramural Sports Relational Database</h3>
+      <p>Built a relational database modeling 18+ entities to centralize operations for a
+      university intramural sports program, replacing a fragmented multi-spreadsheet system
+      with a single structured source of truth.</p>
+      <div class="tags"><span>SQL</span><span>Database Design</span><span>ER Modeling</span></div>
+    </article>
+
+    <article class="card">
+      <span class="kind">Machine Learning at Scale</span>
+      <h3>Federated Learning on Cyber Attack Data</h3>
+      <p>Preprocessed, analyzed, and visualized synthetic cyber attack datasets with more
+      than 16 million records, applying supervised and unsupervised models with federated
+      learning techniques. Awarded first place for the group capstone project.</p>
+      <div class="tags"><span>Python</span><span>Pandas</span><span>Flower</span><span>Federated Learning</span></div>
+    </article>
+
+    <article class="card">
+      <span class="kind">Research</span>
+      <h3>AI-for-Equity Research</h3>
+      <p>Research assistant on an ongoing University of Virginia initiative examining how
+      data science and machine learning methods can be applied responsibly and equitably
+      across real-world contexts.</p>
+      <div class="tags"><span>Research</span><span>Responsible AI</span></div>
+    </article>
+
+  </div>
+</section>
+
+<section id="fieldwork">
+  <div class="sec-label"><span class="tick">FIG. 02</span><h2>Field Study: Myrtle Island</h2></div>
+  <div class="plates">
+    <figure class="plate">
+      <img src="images/Map_1996.jpg" alt="Interpolated elevation surface of Myrtle Island, 1996 survey">
+      <figcaption class="plate-label"><b>PLATE I</b> · Survey 1996</figcaption>
+    </figure>
+    <figure class="plate">
+      <img src="images/Map_1997.jpg" alt="Interpolated elevation surface of Myrtle Island, 1997 survey">
+      <figcaption class="plate-label"><b>PLATE II</b> · Survey 1997</figcaption>
+    </figure>
+    <figure class="plate">
+      <img src="images/Map_1998.jpg" alt="Interpolated elevation surface of Myrtle Island, 1998 survey">
+      <figcaption class="plate-label"><b>PLATE III</b> · Survey 1998</figcaption>
+    </figure>
+    <figure class="plate">
+      <img src="images/Map_2001.jpg" alt="Interpolated elevation surface of Myrtle Island, 2001 survey">
+      <figcaption class="plate-label"><b>PLATE IV</b> · Survey 2001</figcaption>
+    </figure>
+  </div>
+  <p class="plates-note">
+    IDW-interpolated elevation surfaces of Myrtle Island, Virginia, generated in ArcGIS
+    from GPS survey data across four survey years. Warmer tones indicate higher elevation
+    relative to mean sea level; gray points mark researcher survey grid locations. Together
+    the surfaces trace how the island's shape and elevation shifted between 1996 and 2001.
+  </p>
+</section>
+
+<section id="experience">
+  <div class="sec-label"><span class="tick">FIG. 03</span><h2>Experience</h2></div>
+  <div class="xp">
+
+    <div class="xp-item">
+      <div class="xp-when">May 2026 — Present</div>
+      <div>
+        <h3>Business Analytics &amp; Automation Intern</h3>
+        <div class="org">Leidos</div>
+        <p>Building automation workflows and internal tools for the Corporate Real Estate
+        and Workplace Solutions department, including AI-assisted document extraction and
+        an integrated project tracking web app.</p>
+      </div>
+    </div>
+
+    <div class="xp-item">
+      <div class="xp-when">Feb 2026 — May 2026</div>
+      <div>
+        <h3>Research Assistant: Barrier Island Topographic Analysis</h3>
+        <div class="org">University of Virginia</div>
+        <p>Processed multi-year GPS survey data in ArcGIS to quantify elevation, shoreline,
+        and volume change on Virginia's barrier islands.</p>
+      </div>
+    </div>
+
+    <div class="xp-item">
+      <div class="xp-when">Jun 2025 — Aug 2025</div>
+      <div>
+        <h3>Data Science Intern</h3>
+        <div class="org">Hitachi Vantara Federal</div>
+        <p>Designed a geospatial machine learning system for flight collision risk, from
+        ETL pipelines and PostGIS storage through model training and visualization.</p>
+      </div>
+    </div>
+
+    <div class="xp-item">
+      <div class="xp-when">Jan 2025 — May 2025</div>
+      <div>
+        <h3>Information Security Intern</h3>
+        <div class="org">University of Virginia</div>
+        <p>Supported cybersecurity operations by monitoring alerts and triaging incidents.</p>
+      </div>
+    </div>
+
+    <div class="xp-item">
+      <div class="xp-when">Jun 2024 — Aug 2024</div>
+      <div>
+        <h3>Data Science Intern</h3>
+        <div class="org">MITRE Corporation</div>
+        <p>Analyzed synthetic cyber attack datasets with 16+ million records and applied
+        machine learning with federated techniques. First place, group capstone project.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section id="skills">
+  <div class="sec-label"><span class="tick">FIG. 04</span><h2>Skills Legend</h2></div>
+  <div class="legend">
+    <div class="legend-group">
+      <h3>Languages</h3>
+      <ul><li>Python (Pandas, Matplotlib, Seaborn)</li><li>R</li><li>SQL</li></ul>
+    </div>
+    <div class="legend-group">
+      <h3>Geospatial</h3>
+      <ul><li>ArcGIS</li><li>PostGIS</li><li>GPS survey processing</li><li>Open geospatial APIs</li></ul>
+    </div>
+    <div class="legend-group">
+      <h3>Machine Learning</h3>
+      <ul><li>Scikit-learn</li><li>PyTorch</li><li>Flower (federated learning)</li><li>Classical &amp; federated ML</li></ul>
+    </div>
+    <div class="legend-group">
+      <h3>Tools &amp; Platforms</h3>
+      <ul><li>Power BI &amp; Tableau</li><li>Power Automate</li><li>Git</li><li>Pentaho ETL</li></ul>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="contact-box">
+    <svg viewBox="0 0 300 300" aria-hidden="true" fill="none" stroke="#EAF2EF" stroke-width="1.4">
+      <path d="M10 250 C 70 220, 110 260, 170 230 S 260 240, 310 210"/>
+      <path d="M10 210 C 80 180, 130 220, 190 190 S 270 200, 310 170"/>
+      <path d="M30 170 C 100 145, 150 180, 210 155 S 280 160, 310 135"/>
+      <path d="M60 130 C 120 110, 170 140, 230 120 S 290 122, 310 100"/>
+    </svg>
+    <h2>Let's put something on the map.</h2>
+    <p>I am happy to talk about geospatial data science, environmental research, jobs,
+    or collaboration. The fastest way to reach me is by email.</p>
+    <div class="contact-links">
+      <a href="mailto:sharini729@gmail.com">Email</a>
+      <a href="http://www.linkedin.com/in/sharini-rahman" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>© 2026 · Built with care in Charlottesville, VA</span>
+  <span>Datum: NAD83 · Scale: 1 : ambition</span>
+</footer>
+
+</body>
+</html>
